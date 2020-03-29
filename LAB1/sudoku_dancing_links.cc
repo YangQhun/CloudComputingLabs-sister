@@ -2,8 +2,10 @@
 #include <memory.h>
 #include <map>
 #include <vector>
-
+#include <stdint.h>
+#include <stdio.h>
 #include "sudoku.h"
+int flag=1;
 using namespace std;
 
 struct Node;
@@ -93,7 +95,6 @@ struct Dance
     Dance(int inout[81]) : inout_(inout), cur_node_(0)
     {
         stack_.reserve(100);
-
         root_ = new_column();
         root_->left = root_->right = root_;
         memset(columns_, 0, sizeof(columns_));
@@ -148,6 +149,7 @@ struct Dance
                 }
             }
         }
+
     }
 
     Column* get_min_column()
@@ -211,6 +213,12 @@ struct Dance
                 //assert(cell != -1 && val != -1);
                 inout_[cell] = val;
             }
+	if(flag==1) flag++;
+	else if(flag==2){
+	for(int i=0;i<81;i++)
+	{
+	printf("%d", inout_[i]);
+	} printf("\n");flag=1;}
             return true;
         }
 
